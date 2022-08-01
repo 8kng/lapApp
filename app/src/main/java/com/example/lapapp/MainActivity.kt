@@ -3,6 +3,8 @@ package com.example.lapapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
+import androidx.core.os.postDelayed
 import com.example.lapapp.databinding.ActivityMainBinding
 import java.text.SimpleDateFormat
 import java.util.*
@@ -38,10 +40,14 @@ class MainActivity : AppCompatActivity() {
         stopbtn.isEnabled = false
 
         startbtn.setOnClickListener {
+            Log.d("tog", "touch")
             startbtn.isEnabled = false
             stopbtn.isEnabled = true
 
+            startbtn.text = "start"
+            time = 0
             handler.post(timer)
+
         }
 
         stopbtn.setOnClickListener {
@@ -49,6 +55,7 @@ class MainActivity : AppCompatActivity() {
             stopbtn.isEnabled = false
 
             handler.removeCallbacks(timer)
+            startbtn.text = "restart"
         }
     }
 }
