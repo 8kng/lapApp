@@ -1,6 +1,7 @@
 package com.example.lapapp
 
-data class dataclass (
-    val number: Int,
-    val time: Int
+import android.view.View
+
+data class dataclass(
+    var time: Int
 )

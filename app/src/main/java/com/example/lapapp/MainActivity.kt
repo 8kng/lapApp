@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import androidx.core.os.postDelayed
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.lapapp.databinding.ActivityMainBinding
 import java.text.SimpleDateFormat
 import java.util.*
@@ -24,6 +25,7 @@ class MainActivity : AppCompatActivity() {
         val lapbtn = binding.lapBtn
         val timertext = binding.timer
         val recycle = binding.lapcycle
+        var laplist = listOf<Int>()
 
         var time = 0L
         val dataFormat = SimpleDateFormat("mm:ss:S", Locale.getDefault())
@@ -47,7 +49,9 @@ class MainActivity : AppCompatActivity() {
             startbtn.text = "start"
             time = 0
             handler.post(timer)
-
+            laplist = listOf()
+            recycle.adapter = Adapter(laplist)
+            recycle.layoutManager = LinearLayoutManager(this)
         }
 
         stopbtn.setOnClickListener {
@@ -56,6 +60,13 @@ class MainActivity : AppCompatActivity() {
 
             handler.removeCallbacks(timer)
             startbtn.text = "restart"
+        }
+
+        lapbtn.setOnClickListener {
+            Log.d("lap", "touch")
+            laplist += time.toInt()
+            recycle.adapter = Adapter(laplist)
+            recycle.layoutManager = LinearLayoutManager(this)
         }
     }
 }
